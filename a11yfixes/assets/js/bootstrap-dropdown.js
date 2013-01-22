@@ -51,9 +51,11 @@
 
       clearMenus()
 
+
       if (!isActive) {
         $parent.toggleClass('open')
-      }
+        $parent.find(toggle).attr('aria-expanded',true)
+      }else $parent.find(toggle).attr('aria-expanded',false)
 
       $this.focus()
 
@@ -81,8 +83,9 @@
 
       isActive = $parent.hasClass('open')
 
-      if (!isActive || (isActive && e.keyCode == 27)) return $this.click()
-
+      if (!isActive || (isActive && e.keyCode == 27)) 
+        return $parent.find(toggle).click().focus()
+        
       $items = $('[role=menu] li:not(.divider):visible a', $parent)
 
       if (!$items.length) return
@@ -102,6 +105,8 @@
 
   function clearMenus() {
     $(toggle).each(function () {
+
+      getParent($(this)).find(toggle).attr('aria-expanded',false)
       getParent($(this)).removeClass('open')
     })
   }

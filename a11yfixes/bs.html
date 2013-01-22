@@ -34,8 +34,6 @@
               <h4>Text in a modal</h4>
               <p>Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem.</p>
 
-              <h4>Popover in a modal</h4>
-              <p>This <a href="#" role="button" class="btn popover-test" title="A Title" data-content="And here's some amazing content. It's very engaging. right?">button</a> should trigger a popover on click.</p>
 
               <h4>Tooltips in a modal</h4>
               <p><a href="#" class="tooltip-test" title="Tooltip">This link</a> and <a href="#" class="tooltip-test" title="Tooltip">that link</a> should have tooltips on hover.</p>
@@ -67,23 +65,18 @@
   	 	<div class='dropdown'>	
   	 	<h3>DropDown</h3>
           <!-- Dropdown exampple -->
-            <a class="dropdown-toggle" id="drop4" role="button" data-toggle="dropdown" href="#">Dropdown <b class="caret"></b></a>
+            <a class="dropdown-toggle" id="drop4" role="button" aria-haspopup="true" aria-expanded="false" data-toggle="dropdown" href="#">Dropdown <b class="caret"></b></a>
 	            <ul id="menu1" class="dropdown-menu" role="menu" aria-labelledby="drop4">
-	              <li><a tabindex="-1" href="#">Action</a></li>
-	              <li><a tabindex="-1" href="#">Another action</a></li>
-	              <li><a tabindex="-1" href="#">Something else here</a></li>
-	              <li class="divider"></li>
-	              <li><a tabindex="-1" href="#">Separated link</a></li>
+	              <li role="presentation"><a tabindex="-1" role="menuitem" href="#">Action</a></li>
+	              <li role="presentation"><a tabindex="-1" role="menuitem" href="#">Another action</a></li>
+	              <li role="presentation"><a tabindex="-1" role="menuitem" href="#">Something else here</a></li>
+	              <li role="presentation" class="divider"></li>
+	              <li role="presentation"><a tabindex="-1" role="separater" href="#">Separated link</a></li>
 	            </ul>
 	        </div>    
 
 
 	         <!-- example tabs -->
-
-      	  <div class="spacebottom">
-      	  <h3>Popover</h3>
-          <a href="#" class="btn btn-large btn-danger" rel="popover" title="A Title" data-content="And here's some amazing content. It's very engaging. right?">Click to toggle popover</a>
-       	 </div>
 
        	 <div class="spacebottom">
        		 <h3>Tab Panel</h3>
