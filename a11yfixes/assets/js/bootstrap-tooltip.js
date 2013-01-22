@@ -103,6 +103,7 @@
         , actualHeight
         , placement
         , tp
+        , tooltipID
 
       if (this.hasContent() && this.enabled) {
         $tip = this.tip()
@@ -111,6 +112,10 @@
         if (this.options.animation) {
           $tip.addClass('fade')
         }
+
+        tooltipID = $tip.attr('id') || 'ui-tooltip'+ Math.floor((Math.random()*100)+1)
+        $tip.attr('id', tooltipID)
+        this.$element.attr('aria-describedby', tooltipID)
 
         placement = typeof this.options.placement == 'function' ?
           this.options.placement.call(this, $tip[0], this.$element[0]) :
@@ -174,6 +179,8 @@
           $tip.detach()
         })
       }
+ 
+       this.$element.removeAttr('aria-describedby')
 
       $.support.transition && this.$tip.hasClass('fade') ?
         removeWithAnimation() :
@@ -268,8 +275,8 @@
     animation: true
   , placement: 'top'
   , selector: false
-  , template: '<div class="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>'
-  , trigger: 'hover'
+  , template: '<div class="tooltip" role="tooltip"><div class="tooltip-arrow"></div><div class="tooltip-inner"></div></div>'
+  , trigger: 'hover focus'
   , title: ''
   , delay: 0
   , html: false
