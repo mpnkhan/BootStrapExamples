@@ -80,9 +80,14 @@
         $active
           .removeClass('active')
           .find('> .dropdown-menu > .active')
-          .removeClass('active')
+          .removeClass('active')  
+
+        $active.find('[data-toggle=tab]').attr('tabIndex',-1).attr('aria-selected',false)
+        $active.filter('.tab-pane').attr('aria-expanded',false)
 
         element.addClass('active')
+        element.find('[data-toggle=tab]').attr('tabIndex',0).attr('aria-selected',true)
+        element.filter('.tab-pane').attr('aria-expanded',true)
 
         if (transition) {
           element[0].offsetWidth // reflow for transition
@@ -104,6 +109,32 @@
 
       $active.removeClass('in')
     }
+
+  , keydown: function (e) {
+      var $this = $(this)
+      , $items
+      , $ul = $this.closest('ul[role=tablist] ')
+      , index
+      , k = e.which || e.keyCode;
+
+      $this = $(this)
+      if (!/(13|32|37|38|39|40)/.test(k)) return
+
+       $items = $ul.find('[role=tab]')
+       index = $items.index($items.filter(':focus'))
+
+      if ((k == 38 || k == 37) && index > 0) index--                                        // up & left
+      if ((k == 39 || k == 40) && index < $items.length - 1) index++                        // down & right
+      if (!~index) index = 0
+
+      $items
+        .eq(index)
+        .tab('show').focus()
+
+      e.preventDefault()
+      e.stopPropagation()
+
+    }  
   }
 
 
@@ -136,9 +167,11 @@
  /* TAB DATA-API
   * ============ */
 
-  $(document).on('click.tab.data-api', '[data-toggle="tab"], [data-toggle="pill"]', function (e) {
+  $(document)
+    .on('click.tab.data-api', '[data-toggle="tab"], [data-toggle="pill"]', function (e) {
     e.preventDefault()
     $(this).tab('show')
   })
+    .on('keydown.tab.data-api touchstart.tab.data-api','[data-toggle="tab"], [data-toggle="pill"]' , Tab.prototype.keydown)
 
 }(window.jQuery);
