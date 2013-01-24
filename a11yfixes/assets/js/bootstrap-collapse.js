@@ -51,12 +51,17 @@
         , scroll
         , actives
         , hasData
+        , activeTab
 
       if (this.transitioning) return
 
       dimension = this.dimension()
       scroll = $.camelCase(['scroll', dimension].join('-'))
       actives = this.$parent && this.$parent.find('> .accordion-group > .in')
+
+      activeTab = this.$parent.find('a[href=#'+ actives.attr('id')+']')
+      activeTab.attr('tabIndex',-1).attr('aria-selected',false).attr('aria-expanded',false)
+      actives.attr('aria-hidden',true) 
 
       if (actives && actives.length) {
         hasData = actives.data('collapse')
@@ -117,6 +122,28 @@
       this[this.$element.hasClass('in') ? 'hide' : 'show']()
     }
 
+   , keydown: function (e) {
+      var $this = $(this)
+      , $items
+      , $ul = $this.closest('div[role=tablist] ')
+      , index
+      , k = e.which || e.keyCode
+
+      $this = $(this)
+      if (!/(37|38|39|40)/.test(k)) return
+
+      $items = $ul.find('[role=tab]')
+      index = $items.index($items.filter(':focus'))
+
+      if ((k == 38 || k == 37) && index > 0) index--                                        // up & left
+      if ((k == 39 || k == 40) && index < $items.length - 1) index++                        // down & right
+      if (!~index) index = 0
+
+      $items.eq(index).focus()
+
+      e.preventDefault()
+      e.stopPropagation()
+    }     
   }
 
 
@@ -154,7 +181,8 @@
  /* COLLAPSE DATA-API
   * ================= */
 
-  $(document).on('click.collapse.data-api', '[data-toggle=collapse]', function (e) {
+  $(document)
+  .on('click.collapse.data-api', '[data-toggle=collapse]', function (e) {
     var $this = $(this), href
       , target = $this.attr('data-target')
         || e.preventDefault()
@@ -162,6 +190,10 @@
       , option = $(target).data('collapse') ? 'toggle' : $this.data()
     $this[$(target).hasClass('in') ? 'addClass' : 'removeClass']('collapsed')
     $(target).collapse(option)
+    $this.attr('tabIndex',0).attr('aria-selected',true).attr('aria-expanded',true)
+    //$(target).attr('aria-hidden','false')
+    $(target).hasClass('in') ? $(target).attr('aria-hidden','false') : $(target).attr('aria-hidden','true')
   })
+  .on('keydown.collapse.data-api touchstart.collapse.data-api','[data-toggle="collapse"]' , Collapse.prototype.keydown)
 
 }(window.jQuery);
