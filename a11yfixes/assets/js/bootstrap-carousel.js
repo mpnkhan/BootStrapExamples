@@ -128,11 +128,47 @@
         this.sliding = false
         this.$element.trigger('slid')
       }
-
+      $active.attr('aria-selected',false)
+      $next.attr('aria-selected',true)
+      
       isCycling && this.cycle()
 
       return this
     }
+  , keydown: function (e) {
+     var $this = $(this)
+      , $ul = $this.closest('div[role=listbox]')
+      , $items = $ul.find('[role=option]')
+      , $parent = $ul.parent()
+      , k = e.which || e.keyCode
+      , index
+      , i
+
+      if (!/(37|38|39|40)/.test(k)) return
+
+      index = $items.index($items.filter('.active'))
+      if (k == 37 || k == 38) {                           //  Up
+        $parent.carousel('prev') 
+        index--;
+        if(index < 0) index = $items.length -1;
+      }                                         
+      if (k == 39 || k == 40) {                          // Down
+        $parent.carousel('next')   
+        index++
+        if(index == $items.length) index = 0;
+      }  
+
+      $items.eq(index).focus()
+/*
+    setTimeout(function () {
+      var $items = $ul.find('[role=option]')
+      i = $items.index($items.filter('.active'))
+      $items.eq(i).focus()
+    },1000)
+*/
+      e.preventDefault()
+      e.stopPropagation()
+    }    
 
   }
 
@@ -156,8 +192,7 @@
   }
 
   $.fn.carousel.defaults = {
-    interval: 5000
-  , pause: 'hover'
+    interval: false
   }
 
   $.fn.carousel.Constructor = Carousel
@@ -174,12 +209,14 @@
  /* CAROUSEL DATA-API
   * ================= */
 
-  $(document).on('click.carousel.data-api', '[data-slide]', function (e) {
+  $(document)
+    .on('click.carousel.data-api', '[data-slide]', function (e) {
     var $this = $(this), href
       , $target = $($this.attr('data-target') || (href = $this.attr('href')) && href.replace(/.*(?=#[^\s]+$)/, '')) //strip for ie7
       , options = $.extend({}, $target.data(), $this.data())
     $target.carousel(options)
     e.preventDefault()
   })
+  .on('keydown.carousel.data-api', 'div[role=option]', Carousel.prototype.keydown)  
 
 }(window.jQuery);

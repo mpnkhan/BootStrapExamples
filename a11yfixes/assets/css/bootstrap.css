@@ -5876,7 +5876,8 @@ a.badge:hover {
 
 .carousel-inner {
   position: relative;
-  width: 100%;
+  width: 80%;
+  left: 80px;
   overflow: hidden;
 }
 
@@ -5901,7 +5902,7 @@ a.badge:hover {
 }
 
 .carousel-inner > .active {
-  left: 0;
+  //left: 135px;
 }
 
 .carousel-inner > .next,
@@ -5958,7 +5959,8 @@ a.badge:hover {
   left: auto;
 }
 
-.carousel-control:hover {
+.carousel-control:hover,
+.carousel-control:focus {
   color: #ffffff;
   text-decoration: none;
   opacity: 0.9;
