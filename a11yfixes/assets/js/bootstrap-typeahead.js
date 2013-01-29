@@ -155,6 +155,10 @@
       if (!next.length) {
         next = $(this.$menu.find('li')[0])
       }
+	  var val = next.attr('data-value')
+      this.$element
+        .val(this.updater(val))
+        .change()
 
       next.addClass('active')
     }
@@ -293,8 +297,8 @@
   $.fn.typeahead.defaults = {
     source: []
   , items: 8
-  , menu: '<ul class="typeahead dropdown-menu"></ul>'
-  , item: '<li><a href="#"></a></li>'
+  , menu: '<ul class="typeahead dropdown-menu" tabindex="0"></ul>'
+  , item: '<li role="presentation"><a href="#" tabindex="-1"></a></li>'
   , minLength: 1
   }
 
