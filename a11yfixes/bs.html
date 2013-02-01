@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+	<title>Bootstrap Accessibility fixes</title>
     <meta charset="utf-8">
   	<link href="assets/css/bootstrap.css" rel="stylesheet">
     <link href="assets/css/bootstrap-responsive.css" rel="stylesheet">
@@ -14,13 +15,20 @@
   
   <body>
   	 <div class="container">
-
+			<p> Uses Bootstrap v 2.2.2 </p>
+			
 	        <!-- Tool tip -->
 	    
         	<div class="tooltip-demo spacebottom">
         		<h3>Tooltips</h3>
         		A tooltip is like windows tooltip 
        			 <a href="#" rel="tooltip" title="Default tooltip">you probably</a>
+				 <ol>
+					Changes:
+					 <li> Can be used with both mouse and keyboard </li>
+					 <li>role="tooltip" for the tooltip</li>
+					 <li>aria-describedby for the anchor</li>
+				 </ol>
    			 </div>
 
 
@@ -60,11 +68,16 @@
           <div style="padding-bottom: 24px;" class="spacebottom">
          	 <h3>Modal Dialog</h3>
             <a data-toggle="modal" href="#myModal" role="button" class="btn btn-primary btn-large">Launch demo modal</a>
+			 <ol>
+				Changes:
+				 <li>Role document inside Modal, so that AT can come out of application mode to read text</li>
+				 <li>role="button" for launch link</li>
+			 </ol>			
           </div>	
 
        
   	 		 <!-- example dropdown  -->
-
+   <div  class="spacebottom">
   	 	<div class='dropdown'>	
   	 	<h3>DropDown</h3>
           <!-- Dropdown exampple -->
@@ -77,8 +90,15 @@
 	              <li role="presentation"><a tabindex="-1" role="separator" href="#">Separated link</a></li>
 	            </ul>
 	        </div>    
-
-
+			 <ol>
+				Changes:
+				 <li>aria-haspopup="true" and role="button" for launch link</li>
+				  <li>role="menu" for UL</li>
+				  <li>role="presentation" for li</li>
+				    <li>role="menuitem" for anchor inside li</li>
+				 <li>role="separator" for separator link</li>
+			 </ol>
+	</div>
 	         <!-- example tabs -->
 
        	 <div class="spacebottom">
@@ -99,7 +119,14 @@
                 <p>Etsy mixtape wayfarers, ethical wes anderson tofu before they sold out mcsweeney's organic lomo retro fanny pack lo-fi farm-to-table readymade. Messenger bag gentrify pitchfork tattooed craft beer, iphone skateboard locavore carles etsy salvia banksy hoodie helvetica. DIY synth PBR banksy irony. Leggings gentrify squid 8-bit cred pitchfork. Williamsburg banh mi whatever gluten-free, carles pitchfork biodiesel fixie etsy retro mlkshk vice blog. Scenester cred you probably haven't heard of them, vinyl craft beer blog stumptown. Pitchfork sustainable tofu synth chambray yr.</p>
               </div>
             </div>    
-
+			 <ol>
+				Changes:
+				 <li>role="tablist" for tab ul</li>
+				 <li>role="tab", aria-control="tabpanelid", aria-selected and aria-expanded="true" for tab</li>
+				  <li>role="presentation"  for tab li</li>
+				    <li>role="tabpanel" , tabIndex="0" and aria-expanded for tabpanel</li>
+					<li>up and left arrow navigates tab and down and right also navigates tab</li>
+			 </ol>
          </div>     
 
     <!--example accordion begin -->     
@@ -144,6 +171,13 @@
                   </div>
                 </div>
               </div>
+				 <ol>
+					Changes:
+					 <li>role="tablist" and aria-multiselectable="true" for tab div</li>
+					 <li>role="tab", aria-control="tabpanelid" , aria-selected, aria-expanded="true" for tab div</li>
+					<li>role="tabpanel" , tabIndex="0",aria-expanded,aria-hidden and  aria-labelledby for tabpanel</li>
+					<li>up and down arrow navigates accordion header  and enter expands accordion</li>
+				 </ol>			  
             </div>
 
             <!--example bootstrap-carousel -->
@@ -176,9 +210,15 @@
                     </div>
                   </div>
                 </div>
-
                 <a class="right carousel-control" href="#myCarousel" data-slide="next" role="button" title="Next" aria-label="Next">&rsaquo;</a>
               </div>
+				 <ol>
+					Changes:
+					 <li>role="button" for previous next</li>
+					 <li>role="listbox", aria-labelledby for carousel container</li>
+					  <li>role="option" and aria-selected for accordion item</li>
+						<li>up and  down arrow navigates carousel items</li>
+				 </ol>					  
             </div>
           
 
@@ -188,6 +228,13 @@
               <h3>Typeahead</h3>
 			  <label for="country">	Country</label>
               <input id="country" type="text" class="span3" style="margin: 0 auto;" data-provide="typeahead" data-items="4" data-source='["Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Delaware","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Dakota","North Carolina","Ohio","Oklahoma","Oregon","Pennsylvania","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming"]'>
+			  
+			  				 <ol>
+					Changes:
+					 <li>Label for typeahead text box</li>
+					 <li>role="presentation" for li and tabIndex -1 for lisitem</li>
+						<li>up and  down arrow updates textbox so that value is exposed to AT</li>
+				 </ol>	
             </div>      
 
  			<div class="spacebottom" style="margin-bottom:100px">&nbsp;</div>
