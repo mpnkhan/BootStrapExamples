@@ -118,7 +118,7 @@
       , k = e.which || e.keyCode;
 
       $this = $(this)
-      if (!/(13|32|37|38|39|40)/.test(k)) return
+      if (!/(37|38|39|40)/.test(k)) return
 
       $items = $ul.find('[role=tab]')
       index = $items.index($items.filter(':focus'))
@@ -129,7 +129,8 @@
 
       $items
         .eq(index)
-        .tab('show').focus()
+        //.tab('show')
+        .focus()
 
       e.preventDefault()
       e.stopPropagation()
