@@ -54,10 +54,11 @@
 
       if (!isActive) {
         $parent.toggleClass('open')
+        $('[role=menu] li:not(.divider):visible a', $parent)[0].focus()
         $parent.find(toggle).attr('aria-expanded',true)
       }else $parent.find(toggle).attr('aria-expanded',false)
 
-      $this.focus()
+     // $this.focus()
 
       return false
     }
@@ -162,5 +163,13 @@
     .on('touchstart.dropdown.data-api', '.dropdown-menu', function (e) { e.stopPropagation() })
     .on('click.dropdown.data-api touchstart.dropdown.data-api'  , toggle, Dropdown.prototype.toggle)
     .on('keydown.dropdown.data-api touchstart.dropdown.data-api', toggle + ', [role=menu]' , Dropdown.prototype.keydown)
+    .on('focusout.dropdown.data-api',  '.dropdown-menu', function(e){
+      var $this = $(this)
+      setTimeout(function() {
+       if(!$(document.activeElement).is($this.find("a"))){
+        clearMenus()
+       }
+      }, 150)
+     })
 
 }(window.jQuery);
