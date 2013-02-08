@@ -121,7 +121,7 @@
           $tip.addClass('fade')
         }
 
-        tooltipID = $tip.attr('id') || 'ui-tooltip'+ Math.floor((Math.random()*100)+1)
+        tooltipID = $tip.attr('id') || 'ui-tooltip-'+ Math.floor((Math.random()*100)+1)
         $tip.attr('id', tooltipID)
         this.$element.attr('aria-describedby', tooltipID)
 
