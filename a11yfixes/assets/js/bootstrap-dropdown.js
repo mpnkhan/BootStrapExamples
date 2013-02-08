@@ -54,7 +54,7 @@
 
       if (!isActive) {
         $parent.toggleClass('open')
-        $('[role=menu] li:not(.divider):visible a', $parent)[0].focus()
+        setTimeout(function(){$('[role=menu] li:not(.divider):visible a', $parent)[0].focus()},100)
         $parent.find(toggle).attr('aria-expanded',true)
       }else $parent.find(toggle).attr('aria-expanded',false)
 
@@ -93,9 +93,10 @@
 
       index = $items.index($items.filter(':focus'))
 
-      if (e.keyCode == 38 && index > 0) index--                                        // up
-      if (e.keyCode == 40 && index < $items.length - 1) index++                        // down
-      if (!~index) index = 0
+      if (e.keyCode == 38) index--                                        // up
+      if (e.keyCode == 40) index++                        // down
+      if(index < 0) index = $items.length -1;
+      if(index == $items.length) index = 0;
 
       $items
         .eq(index)
