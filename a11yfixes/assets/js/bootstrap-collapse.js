@@ -60,8 +60,8 @@
       actives = this.$parent && this.$parent.find('> .accordion-group > .in')
 
       activeTab = this.$parent.find('a[href=#'+ actives.attr('id')+']')
-      activeTab.attr('tabIndex',-1).attr('aria-selected',false).attr('aria-expanded',false)
-      actives.attr('aria-hidden',true) 
+      activeTab.attr({'tabIndex' : '-1', 'aria-selected' : false,'aria-expanded' : false})
+      actives.attr({'aria-hidden' : true,'tabIndex' : '-1'}) 
 
       if (actives && actives.length) {
         hasData = actives.data('collapse')
@@ -135,9 +135,10 @@
       $items = $ul.find('[role=tab]')
       index = $items.index($items.filter(':focus'))
 
-      if ((k == 38 || k == 37) && index > 0) index--                                        // up & left
-      if ((k == 39 || k == 40) && index < $items.length - 1) index++                        // down & right
-      if (!~index) index = 0
+      if (k == 38 || k == 37) index--                                        // up & left
+      if (k == 39 || k == 40) index++                        // down & right
+      if(index < 0) index = $items.length -1;
+      if(index == $items.length) index = 0;
 
       $items.eq(index).focus()
 
@@ -191,8 +192,7 @@
     $this[$(target).hasClass('in') ? 'addClass' : 'removeClass']('collapsed')
     $(target).collapse(option)
     $this.attr('tabIndex',0).attr('aria-selected',true).attr('aria-expanded',true)
-    //$(target).attr('aria-hidden','false')
-    $(target).hasClass('in') ? $(target).attr('aria-hidden','false') : $(target).attr('aria-hidden','true')
+    $(target).hasClass('in') ? $(target).attr({'aria-hidden' : 'false','tabIndex' : '0'}) : $(target).attr({'aria-hidden' : 'true','tabIndex' : '-1'})
   })
   .on('keydown.collapse.data-api touchstart.collapse.data-api','[data-toggle="collapse"]' , Collapse.prototype.keydown)
 

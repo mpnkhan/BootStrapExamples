@@ -54,11 +54,11 @@
 
       if (!isActive) {
         $parent.toggleClass('open')
-        setTimeout(function(){$('[role=menu] li:not(.divider):visible a', $parent)[0].focus()},100)
-        $parent.find(toggle).attr('aria-expanded',true)
-      }else $parent.find(toggle).attr('aria-expanded',false)
-
-     // $this.focus()
+        setTimeout(function(){
+          $('[role=menu] li:not(.divider):visible a', $parent)[0].focus()
+        },100)
+          $parent.find(toggle).attr('aria-expanded', true)
+      }else $parent.find(toggle).attr('aria-expanded', false)
 
       return false
     }

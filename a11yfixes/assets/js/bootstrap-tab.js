@@ -82,12 +82,12 @@
           .find('> .dropdown-menu > .active')
           .removeClass('active')  
 
-        $active.find('[data-toggle=tab]').attr('tabIndex',-1).attr('aria-selected',false).attr('aria-expanded',false)
-        $active.filter('.tab-pane').attr('aria-hidden',true)
+          $active.find('[data-toggle=tab]').attr({'tabIndex' : '-1','aria-selected' : false,'aria-expanded' : false})
+          $active.filter('.tab-pane').attr({'aria-hidden' : true,'tabIndex' : '-1'})
 
-        element.addClass('active')
-        element.find('[data-toggle=tab]').attr('tabIndex',0).attr('aria-selected',true).attr('aria-expanded',true)
-        element.filter('.tab-pane').attr('aria-hidden',false)
+          element.addClass('active')
+          element.find('[data-toggle=tab]').attr({'tabIndex' : '0','aria-selected' : true,'aria-expanded' : true})
+          element.filter('.tab-pane').attr({'aria-hidden' : false,'tabIndex' : '0'})
 
         if (transition) {
           element[0].offsetWidth // reflow for transition
@@ -123,9 +123,10 @@
       $items = $ul.find('[role=tab]')
       index = $items.index($items.filter(':focus'))
 
-      if ((k == 38 || k == 37) && index > 0) index--                                        // up & left
-      if ((k == 39 || k == 40) && index < $items.length - 1) index++                        // down & right
-      if (!~index) index = 0
+      if (k == 38 || k == 37) index--                                        // up & left
+      if (k == 39 || k == 40) index++                        // down & right
+      if(index < 0) index = $items.length -1;
+      if(index == $items.length) index = 0;
 
       $items
         .eq(index)
