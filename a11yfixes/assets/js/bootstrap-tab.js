@@ -130,7 +130,7 @@
 
       $items
         .eq(index)
-        //.tab('show')
+        .tab('show')      //Comment this line for dynamically loaded tabPabels, to save Ajax requests on arrow key navigation
         .focus()
 
       e.preventDefault()
