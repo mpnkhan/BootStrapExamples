@@ -11,14 +11,12 @@ Checkout <a href="http://mpnkhan.github.com/BootStrapExamples/">these Examples</
 
 ## Authors
 
-**Nawaz**
-
-+ [http://twitter.com/mpnkhan](http://twitter.com/mpnkhan)
+**Nawaz**  [http://twitter.com/mpnkhan](http://twitter.com/mpnkhan)
 
 
 ## Copyright and license
 
-Copyright 2012 Twitter, Inc.
+Copyright 2013
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this work except in compliance with the License.
