@@ -1,6 +1,6 @@
-These are few examples, to show how easy it is to build Aria Ready UI Widgets. These examples use <a href="https://github.com/twitter/bootstrap">Twitter Bootstrap</a>.
+These are few examples, to show how easy it is to build Aria Ready UI Widgets. These examples uses <a href="https://github.com/twitter/bootstrap">Twitter Bootstrap</a>.
 This is a clone of Twitter Bootstrap 2.2.2 and Accessibillity fixes applied on top of them.
-Checkout <a href="http://mpnkhan.github.com/BootStrapExamples/">the Examples</a>
+Checkout <a href="http://mpnkhan.github.com/BootStrapExamples/">these Examples</a>
 
 ## Examples
 
