@@ -71,7 +71,7 @@
         , isActive
         , index
 
-      if (!/(38|40|27)/.test(e.keyCode)) return
+      if (!/(32|38|40|27)/.test(e.keyCode)) return
 
       $this = $(this)
 
