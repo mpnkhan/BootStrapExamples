@@ -54,9 +54,11 @@
 
       if (!isActive) {
         $parent.toggleClass('open')
-        setTimeout(function(){
+        if(e.clientX == 0){ 
+         setTimeout(function(){
           $('[role=menu] li:not(.divider):visible a', $parent)[0].focus()
-        },100)
+         },100)
+        }
           $parent.find(toggle).attr('aria-expanded', true)
       }else $parent.find(toggle).attr('aria-expanded', false)
 
@@ -71,7 +73,7 @@
         , isActive
         , index
 
-      if (!/(38|40|27)/.test(e.keyCode)) return
+      if (!/(32|38|40|27)/.test(e.keyCode)) return
 
       $this = $(this)
 

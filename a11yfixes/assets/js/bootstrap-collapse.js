@@ -130,8 +130,10 @@
       , k = e.which || e.keyCode
 
       $this = $(this)
-      if (!/(37|38|39|40)/.test(k)) return
-
+      if (!/(32|37|38|39|40)/.test(k)) return
+	  
+	  if(k==32) $this.click()	
+		
       $items = $ul.find('[role=tab]')
       index = $items.index($items.filter(':focus'))
 
