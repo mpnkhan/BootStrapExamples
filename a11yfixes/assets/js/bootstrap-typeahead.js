@@ -17,6 +17,20 @@
  * limitations under the License.
  * ============================================================ */
 
+(function ($) {
+    var counter = 0;
+    $.generateId = function(element, prefix) {
+        var generatedId;
+        do {
+          generatedId = (prefix ? prefix + '-' : '') + (counter++);
+        } while(document.getElementById(generatedId));
+
+        if (element) {
+            $(element).attr('id', generatedId);
+        }
+        return generatedId;
+    };
+}(jQuery));
 
 !function($){
 
@@ -37,6 +51,8 @@
     this.$menu = $(this.options.menu)
     this.shown = false
     this.listen()
+    console.log(this.$element,this.$menu.attr('id'))
+    this.$element.attr('aria-owns', this.$menu.attr('id'))
   }
 
   Typeahead.prototype = {
@@ -69,12 +85,14 @@
         .show()
 
       this.shown = true
+      this.$element.attr('aria-expanded','true')
       return this
     }
 
   , hide: function () {
       this.$menu.hide()
       this.shown = false
+      this.$element.attr('aria-expanded','false')
       return this
     }
 
@@ -297,7 +315,7 @@
   $.fn.typeahead.defaults = {
     source: []
   , items: 8
-  , menu: '<ul class="typeahead dropdown-menu" tabindex="0"></ul>'
+  , menu: '<ul class="typeahead dropdown-menu" tabindex="0" id="'+ $.generateId(this,'ui-typeahead') +'"></ul>'
   , item: '<li role="presentation"><a href="#" tabindex="-1"></a></li>'
   , minLength: 1
   }
