@@ -62,7 +62,7 @@
       activeTab = this.$parent.find('a[href=#'+ actives.attr('id')+']')
       activeTab.attr({'tabIndex' : '-1', 'aria-selected' : false,'aria-expanded' : false})
       actives.attr({'aria-hidden' : true,'tabIndex' : '-1'}) 
-
+ 
       if (actives && actives.length) {
         hasData = actives.data('collapse')
         if (hasData && hasData.transitioning) return
@@ -183,7 +183,6 @@
 
  /* COLLAPSE DATA-API
   * ================= */
-
   $(document)
   .on('click.collapse.data-api', '[data-toggle=collapse]', function (e) {
     var $this = $(this), href
@@ -191,10 +190,17 @@
         || e.preventDefault()
         || (href = $this.attr('href')) && href.replace(/.*(?=#[^\s]+$)/, '') //strip for ie7
       , option = $(target).data('collapse') ? 'toggle' : $this.data()
-    $this[$(target).hasClass('in') ? 'addClass' : 'removeClass']('collapsed')
+    //$this[$(target).hasClass('in') ? 'addClass' : 'removeClass']('collapsed')
+	
+	if($(target).hasClass('in')){
+	  $this['addClass']('collapsed').attr({'aria-selected':'false','aria-expanded':'false', 'tabIndex':'-1'})
+	  $(target).attr({'aria-hidden' : 'true','tabIndex' : '-1'})
+	}else{
+		$this['removeClass']('collapsed').attr({'aria-selected':'true','aria-expanded':'true' ,'tabIndex':'0'})
+		$(target).attr({'aria-hidden' : 'false','tabIndex' : '0'})
+	}	
+	
     $(target).collapse(option)
-    $this.attr('tabIndex',0).attr('aria-selected',true).attr('aria-expanded',true)
-    $(target).hasClass('in') ? $(target).attr({'aria-hidden' : 'false','tabIndex' : '0'}) : $(target).attr({'aria-hidden' : 'true','tabIndex' : '-1'})
   })
   .on('keydown.collapse.data-api touchstart.collapse.data-api','[data-toggle="collapse"]' , Collapse.prototype.keydown)
 
