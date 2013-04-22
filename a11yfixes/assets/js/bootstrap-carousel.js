@@ -94,10 +94,22 @@
         , fallback  = type == 'next' ? 'first' : 'last'
         , that = this
         , e
+        , wrap = this.options.wrap
 
       this.sliding = true
 
       isCycling && this.pause()
+
+      if(!wrap){
+        if(type=='next' && !$next.length)  { 
+            this.sliding = false
+            return 
+        }
+        if(type=='prev' && !$next.length){
+            this.sliding = false 
+            return
+        }
+      }
 
       $next = $next.length ? $next : this.$element.find('.item')[fallback]()
 
@@ -128,8 +140,8 @@
         this.sliding = false
         this.$element.trigger('slid')
       }
-      $active.attr('aria-selected',false)
-      $next.attr('aria-selected',true)
+      $active.attr({'aria-selected':false, 'tabIndex': '-1'})
+      $next.attr({'aria-selected':true, 'tabIndex': '0'}).focus()
       
       isCycling && this.cycle()
 
@@ -158,14 +170,6 @@
         if(index == $items.length) index = 0;
       }  
 
-      $items.eq(index).focus()
-/*
-    setTimeout(function () {
-      var $items = $ul.find('[role=option]')
-      i = $items.index($items.filter('.active'))
-      $items.eq(i).focus()
-    },1000)
-*/
       e.preventDefault()
       e.stopPropagation()
     }    
@@ -193,6 +197,7 @@
 
   $.fn.carousel.defaults = {
     interval: false
+    , wrap: false         //false means do not wrap
   }
 
   $.fn.carousel.Constructor = Carousel
